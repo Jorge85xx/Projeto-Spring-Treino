@@ -3,6 +3,7 @@ package io.github.jorge85xx.course.services;
 import java.util.List;
 import java.util.Optional;
 
+import io.github.jorge85xx.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserService {
 	
 	public User findById(Long id) {
 		Optional<User> user = userRepository.findById(id);
-		return user.get();
+		return user.orElseThrow(() ->  new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User user) {
